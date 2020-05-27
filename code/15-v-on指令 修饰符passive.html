@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <nav @click="handleNavClick">
+            <!-- .passive 不阻止浏览器的默认行为  -->
+            <a href="http://www.baidu.com" @click.passive="handleItemClick">项目一</a>
+            <a href="http://www.baidu.com" @click.passive="handleItemClick">项目二</a>
+            <a href="http://www.baidu.com" @click.passive="handleItemClick">项目三</a>
+            <a href="http://www.baidu.com" @click.passive="handleItemClick">项目四</a>
+        </nav>
+    </div>
+
+</body>
+<!-- 1.  引入项目需要的 vue依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 2. 新建一个 Vue 实例 全局对象 Vue
+    let vm = new Vue({
+        el: "#app",
+        data: {
+
+        },
+        methods: {
+            handleItemClick:function(){
+                console.log("子项 的点击事件");
+            },
+            // 父元素的点击事件
+            handleNavClick:function(){
+                console.log("父项 的点击事件");
+            }
+        },
+    })
+
+</script>
+
+</html>

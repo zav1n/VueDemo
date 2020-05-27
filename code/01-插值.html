@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 插值 {{}} -->
+        <!-- 文本 -->
+        <h1>{{"100分"}}</h1>
+        <!-- 变量 -->
+        <h1>{{text}}</h1>
+        <!-- html 代码 -->
+        <h1>{{raw}}</h1>
+        <h1 v-html="raw"></h1>
+        <!-- 属性 -->
+        <h1 id="id"></h1> <!-- 以前的 html 写法 -->
+        <h1 id="id+😊"></h1> <!-- 以前的 html 写法 -->
+        <h1 v-bind:id="id">id</h1><!-- vue 的写法 -->
+        <h1 v-bind:id="id+'😊'">id😊</h1><!-- vue 的写法 -->
+        <!-- 表达式 -->
+        <h1>a+b = {{ a+b }}</h1>
+        <h1> {{ message+"☔️" }}</h1>
+        <h1> {{ ok?"💯":"👍"}}</h1>
+        <!-- 语句声明 不可以！！！ -->
+        <!-- <h1>{{ let msg = "123"}}</h1> -->
+        <!-- {{ 
+            if(ok)
+            {alert("ok")}
+            else
+            {alert("no")}
+        }} -->
+    </div>
+
+</body>
+<!-- 1.  引入项目需要的 vue依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 2. 新建一个 Vue 实例 全局对象 Vue
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            text: "💯 100万 👍😊",
+            raw: "<span style='color:red'>红色</span>",
+            id: 123456,
+            a: 1,
+            b: 2,
+            message: "消息:",
+            ok: true
+        }
+    })
+
+</script>
+
+</html>

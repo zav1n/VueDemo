@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <img v-bind:src="imageSrc" alt="">
+        <img v-bind:[srcname]="imageSrc" alt="">
+        <img :src="imageSrc" alt=""> -->
+        <!-- 动态属性 -->
+       <!-- <img :[srcname]="imageSrc" alt=""> -->
+        <!-- 字符串拼接 -->
+        <img v-bind:src="'./images/'+'1.jpeg'" alt="">
+    </div>
+
+</body>
+<!-- 1.  引入项目需要的 vue依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 2. 新建一个 Vue 实例 全局对象 Vue
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            imageSrc:"./images/1.jpeg",
+            srcname:'src'
+        },
+        methods: {
+
+        },
+    })
+
+</script>
+
+</html>

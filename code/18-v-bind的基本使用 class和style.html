@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 红色的样式 */
+        .red{
+            color:red
+        }
+        .big{
+            font-size:100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <h1 class="red">红色的标题1</h1>
+        <h1 v-bind:class="red">红色的标题2</h1>
+        <h1 v-bind:class="{red:isRed}">红色的标题3</h1>
+        <h1 v-bind:class="{red:isRed,big:true}">红色的标题4</h1>
+        <h1 v-bind:class="['red','big']">红色的标题5</h1>
+        <h1 v-bind:class="['red',{big:true}]">红色的标题6</h1> -->
+        <h1 v-bind:style="{fontSize:'100px',color:'red'}">style的标题1</h1>
+        <h1 v-bind:style="[styleObjectA,styleObjectB]">style的标题2</h1>
+        <h1 :style="{fontSize:'100px',color:'red'}">style的标题1</h1>
+        <h1 :style="[styleObjectA,styleObjectB]">style的标题2</h1>
+    </div>
+
+</body>
+<!-- 1.  引入项目需要的 vue依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 2. 新建一个 Vue 实例 全局对象 Vue
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            red:"red",
+            isRed:true,
+            styleObjectA:{color:'red'},
+            styleObjectB:{fontSize:'100px'},
+        },
+        methods: {
+
+        },
+    })
+
+</script>
+
+</html>

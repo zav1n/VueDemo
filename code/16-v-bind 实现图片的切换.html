@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="changeImage">切换图片</button>
+        <div>
+            <!-- <img src="src" alt=""> -->
+            <!-- 
+                src 表示是 img 的属性 src
+             -->
+            <img v-bind:src="imageSrc" alt="">
+        </div>
+
+    </div>
+</body>
+<!-- 1.  引入项目需要的 vue依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            imageSrc:"./images/1.jpeg"
+        },
+        methods: {
+            changeImage:function(){
+                this.imageSrc = 
+                this.imageSrc==="./images/1.jpeg"?
+                "./images/2.jpeg":"./images/1.jpeg";
+            }
+        },
+    })
+</script>
+</html>

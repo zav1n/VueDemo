@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 13 代表 enter键 -->
+        <input type="text" @keyup.13="handleKeycode">
+    </div>
+
+</body>
+<!-- 1.  引入项目需要的 vue依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 2. 新建一个 Vue 实例 全局对象 Vue
+    let vm = new Vue({
+        el: "#app",
+        data: {
+
+        },
+        methods: {
+            handleKeycode:function(){
+                console.log("keycode=13 的enter事件");
+            }
+        },
+    })
+
+</script>
+
+</html>

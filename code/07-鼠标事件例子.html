@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red{
+            color:red;
+            font-size: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- v-bind 绑定属性 -->
+        <!-- <h1 v-on:mouseenter="changeStyle"
+        v-on:mouseleave="removeStyle"
+        v-bind:class="red"
+        >鼠标移近字体变大变红</h1> -->
+        <h1 @mouseenter="changeStyle"
+        @mouseleave="removeStyle"
+        v-bind:class="red"
+        >鼠标移近字体变大变红</h1>
+
+    </div>
+</body>
+<!-- 1.引入 vue 的依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 创建一个 vue 实例
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            red:""
+        },
+        // 添加方式
+        methods: {
+            changeStyle:function(){
+                console.log("鼠标移近了");
+                this.red = "red";
+            },
+            removeStyle:function(){
+                console.log("鼠标离开了");
+                this.red = "";
+            }
+        },
+    })
+</script>
+</html>

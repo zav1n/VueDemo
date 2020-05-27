@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!--<h1>xx 好帅！！！</h1>  -->
+        <h1> <span id="text">{{name}}</span> 好帅！！！</h1>
+        <h1> <span id="text">{{name}}</span> 好帅！！！</h1>
+    </div>
+
+</body>
+<!-- 1.  引入项目需要的 vue依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // vue 里面有一个 全局对象 Vue
+    let vm = new Vue({
+        el:"#app",// Vue 控制的元素
+        //el:"body",
+        data:{
+            name:"付珍"
+        }
+    })
+</script>
+<!-- <script>
+    document.getElementById("text").innerHTML = "付珍";
+</script> -->
+</html>

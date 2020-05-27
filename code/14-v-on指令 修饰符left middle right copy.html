@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click.left="clickleft">left</button>
+        <button @click.middle="clickmiddle">middle</button>
+        <button @click.right="clickright">right</button>
+    </div>
+
+</body>
+<!-- 1.  引入项目需要的 vue依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 2. 新建一个 Vue 实例 全局对象 Vue
+    let vm = new Vue({
+        el: "#app",
+        data: {
+
+        },
+        methods: {
+            clickleft:function(){
+                console.log("鼠标左键按下 💯");
+            },
+            clickmiddle:function(){
+                console.log("鼠标中间按下 💯");
+            },
+            clickright:function(){
+                console.log("鼠标右边按下 💯");
+            }
+        },
+    })
+
+</script>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <button onclick="add(10)">+</button> html 加事件的方式 -->
+        <!-- v-on:event="method" -->
+        <!-- 每次添加给 步长 step 10 -->
+        <!-- Vue 中 传事件源  用 $event-->
+        <button v-on:click="add(10,$event)"  >+</button>
+        <!-- 数量 -->
+        <span>{{num}}</span>
+        <button v-on:click="sub">-</button>
+
+    </div>
+</body>
+<!-- 1.引入 vue 的依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 创建一个 vue 实例
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            num:0
+        },
+        // 添加方式
+        methods: {
+            add:function(step,e){
+                console.log("进入到加10方法中");
+                console.log(e);
+                console.log(this);
+                // 修改数据 vue 双向数据绑定的 所以num改变
+                // 视图也改变
+                this.num = this.num + step;
+            },
+            sub:function(){
+                console.log("进入减1方法中");
+                if(this.num-1<0){
+                    alert("不能再减了")
+                }else{
+                    this.num = this.num - 1;
+                }
+            }
+        },
+    })
+</script>
+</html>

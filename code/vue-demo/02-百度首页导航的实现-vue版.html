@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./02.css">
+</head>
+
+<body>
+    <!-- 百度首页导航条开始 -->
+    <nav class="nav">
+        <section class="left">
+            <div class="nav-item">{{news}}</div>
+            <div class="nav-item">{{hao}}</div>
+            <div class="nav-item">{{map}}</div>
+            <div class="nav-item">{{vedio}}</div>
+            <div class="nav-item">{{tieba}}</div>
+            <div class="nav-item">{{xueshu}}</div>
+            <div class="nav-item">{{more}}</div>
+        </section>
+        <section class="right">
+            <div class="nav-item" style="color:red">{{kanjifeiyan}}</div>
+            <div class="nav-item">{{setting}}</div>
+            <div class="nav-item"
+                style="color:white;border-radius:5px;height:30px;line-height:30px;text-align:center;width:60px;background-color:blue">
+{{login}}
+            </div>
+        </section>
+    </nav>
+</body>
+<!-- 1.引入 vue 的依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 2. 创建一个 vue 实例
+    let vm = new Vue({
+        el: ".nav",
+        data: {
+            news: '新闻',
+            hao: 'hao123',
+            map: '地图',
+            vedio: "视频",
+            tieba: "贴吧",
+            xueshu: "学术",
+            more: "更多",
+            kanjifeiyan: "抗击肺炎",
+            setting: "设置",
+            login: "登陆"
+        }
+    })
+</script>
+
+</html>
