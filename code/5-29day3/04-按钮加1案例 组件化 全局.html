@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <button @click="add">点击计数加1:{{num}}</button> -->
+        <!-- 自定义的 button 组件 -->
+        <!--       
+            这种写法不推荐  
+             <button-counter/>
+             <button-counter/>
+            <button-counter/> 
+    
+         -->
+        <!-- <buttoncounter></buttoncounter> -->
+        <button-counter></button-counter>
+        <!-- <button-counter></button-counter>
+        <button-counter></button-counter>  -->
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 创建全局组件
+    // 1. 组件的名称
+    // 2. 组件的配置
+    // 3. template 就是组件的模版
+    // 4. data 必须是一个工厂函数
+    // 5. 组件的命名 建议使用  kebab-case  中横线形式 button-counter
+    // 6. 每个template里面必须有一个根元素
+  //  Vue.component("button-counter", {
+    // Vue.component("buttoncounter", {
+    Vue.component("button-counter", {
+        template: "<div><button @click='add'>点击计数加1:{{num}}</button><button @click='add'>点击计数加1:{{num}}</button></div>",
+        // 错误的
+        // data:{
+        //     num:0
+        // },
+        data:function(){
+            return {
+                num:10
+            }
+        },
+        methods: {
+            add:function(){
+                console.log("adding");
+                this.num = this.num + 1;
+            }
+        },
+    })
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            num: 0
+        },
+        methods: {
+            add: function () {
+                // 数字加1
+                this.num = this.num + 1;
+            }
+        },
+    })
+</script>
+
+</html>

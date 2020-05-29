@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <button @click="add">点击计数加1:{{num}}</button> -->
+        <!-- 自定义的 button 组件 -->
+        <!--       
+            这种写法不推荐  
+             <button-counter/>
+             <button-counter/>
+            <button-counter/> 
+    
+         -->
+        <!-- <ButtonCounter></ButtonCounter> -->
+        <button-counter></button-counter>
+        <!-- <button-counter></button-counter>
+        <button-counter></button-counter>  -->
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 创建局部组件
+    // let buttoncounter = ""
+    //  let ComponentA = "";
+    //  let componenta = ""
+    let ButtonCounter = {
+        // 局部组件中的数据
+        data:function(){
+            return {
+                num:0
+            }
+        },
+        // 局部组件中的模版
+        // template:`
+        //     <div><button @click="++num">点击数字加1 {{num}}</button></div>
+        // `
+        template:`
+            <div><button @click="num++">点击数字加1 {{num}}</button></div>
+        `,
+        // template:`
+        //     <div><button @click="add">点击数字加1 {{num}}</button></div>
+        // `,
+        methods: {
+            add:function(){
+                this.num = this.num + 1;
+            }
+        },
+    }
+
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            num: 0
+        },
+        methods: {
+            add: function () {
+                // 数字加1
+                this.num = this.num + 1;
+            }
+        },
+        components:{
+         "button-counter": ButtonCounter
+        //ButtonCounter
+        //ButtonCounter
+        }
+    })
+</script>
+
+</html>

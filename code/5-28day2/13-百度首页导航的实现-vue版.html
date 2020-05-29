@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./02.css">
+</head>
+<style>
+    [v-cloak] {
+        display: none;
+    }
+</style>
+
+<body>
+    <!-- 百度首页导航条开始 -->
+    <nav class="nav" v-cloak>
+        <section class="left">
+            <!-- <div class="nav-item"
+            v-for="item,index in navs"
+            >{{item}}</div> -->
+            <div class="nav-item" v-for="(item,index) in navs_left"
+            :key="index"
+            >{{item}}</div>
+
+        </section>
+        <section class="right">
+            <div class="nav-item" style="color:red">{{navs_right[0]}}</div>
+            <div class="nav-item">{{navs_right[1]}}</div>
+            <div class="nav-item"
+                style="color:white;border-radius:5px;height:30px;line-height:30px;text-align:center;width:60px;background-color:blue">
+                {{navs_right[2]}}
+            </div>
+        </section>
+        <section v-for="value1,name1,i of navs_object" >
+            {{i}}:{{name1}}:{{value1}}
+        </section>
+    </nav>
+</body>
+<!-- 1.引入 vue 的依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 2. 创建一个 vue 实例
+    let vm = new Vue({
+        el: ".nav",
+        data: {
+            navs_object:{
+                id:1,
+                name:2,
+                num:3,
+                index:4
+            },
+            navs_left: ['新闻',
+                'hao123',
+                '地图',
+                "视频",
+                "贴吧",
+                "学术",
+                "更多"
+            ],
+            navs_right: ["抗击肺炎",
+                "设置",
+                "登陆"]
+        }
+    })
+</script>
+
+</html>

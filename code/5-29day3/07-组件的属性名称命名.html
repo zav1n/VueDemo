@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <blog-post postTitle="皇帝"></blog-post> -->
+        <!-- <blog-post posttitle="皇帝"></blog-post> -->
+        <!-- <blog-post v-bind:post-title="huangdi"></blog-post> -->
+        <blog-post v-bind:posttitle="huangdi"></blog-post>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+
+<script>
+    //let posttitle = 123;
+    Vue.component("blog-post",{
+        // 通过 props 接受属性
+        // props:["postTitle"],
+        // template:`<h1>{{postTitle}}</h1>`
+        props:["posttitle"],
+        template:`<h1>{{posttitle}}</h1>`
+        //  有问题
+        // props:["postTitle"],
+        // template:`<h1>{{postTitle}}</h1>`
+    })
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            huangdi:"皇帝"
+        }
+    })
+</script>
+</html>

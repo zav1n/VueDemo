@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- blog-post内容 -->
+        <!-- <section v-for="item,index in posts">
+            {{item}}
+        </section> -->
+        <!-- 静态属性传入 -->
+        <blog-post title="皇帝"></blog-post>
+        <blog-post title="title"></blog-post>
+        <!-- 动态属性传入 -->
+        <blog-post :title="title"></blog-post>
+        <blog-post v-bind:title="title"></blog-post>
+        <blog-post v-for="item,index of posts" :key="index"
+        :title="item"
+        ></blog-post>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+
+<script>
+    Vue.component("blog-post",{
+        // 通过 props 接受属性
+        props:["title"],
+        template:`<h1>{{title}}</h1>`
+    })
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            title:"皇后",
+            posts:["👍👍👍👍👍","💯💯💯💯💯💯💯","😊😊😊😊😊😊"]
+        }
+    })
+</script>
+</html>

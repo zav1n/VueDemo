@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 对数组的遍历 -->
+        <section v-for="item,index in arr" v-if="item.seen">
+            {{index}}:{{item.text}}
+        </section>
+        <section v-for="item,index in arr" v-show="item.seen">
+            {{index}}:{{item.text}}
+        </section>
+
+    </div>
+
+</body>
+<!-- 1.引入 vue 的依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            arr: [
+                {seen:true,text:"👍"}, 
+                {seen:true,text:"💯"}, 
+                {seen:true,text:"😊"}, 
+                {seen:false,text:"🍎"}
+            ],
+
+        }
+    })
+</script>
+
+</html>

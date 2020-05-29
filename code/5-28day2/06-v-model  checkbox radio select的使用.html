@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- checkbox 开始 -->
+        <section>
+            <input type="checkbox" name="" value="usa" 
+            v-model="checkboxValues"
+            id="checkbox1">
+            <label for="checkbox1">美国</label>
+            <input type="checkbox" name="" value="cn" 
+            v-model="checkboxValues"
+            id="checkbox2">
+            <label for="checkbox2">中国</label>
+            <input type="checkbox" name="" value="en" 
+            v-model="checkboxValues"
+            id="checkbox3">
+            <label for="checkbox3">英国</label>
+            {{checkboxValues}}
+        </section>
+        <!-- checkbox 结束 -->
+        <!-- radio 开始 -->
+        <!--  单个radio  -->
+        <section>
+            <input type="radio" name="" id=""
+            v-model="singleRadio"
+            value="我是单个radio的value"
+            >
+            {{singleRadio}}
+        </section>
+        <!-- radio 结束 -->
+        <!--  多个radio  -->
+        <section>
+                <input type="radio" name="" value="usa" 
+                v-model="radioValues"
+                id="radio1">
+                <label for="radio1">美国</label>
+                <input type="radio" name="" value="cn" 
+                v-model="radioValues"
+                id="radio2">
+                <label for="radio2">中国</label>
+                <input type="radio" name="" value="en" 
+                v-model="radioValues"
+                id="radio3">
+                <label for="radio3">英国</label>
+                {{radioValues}}
+        </section>
+        <!-- radio 结束 -->
+        <!-- select 开始 -->
+        <select name="
+        " id="" v-model="selectValue">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        </select>
+        {{selectValue}}
+        <!-- select 结束 -->
+        <!-- select 多选开始 -->
+        <select 
+        style="width:50px"
+        name="
+        " 
+        multiple
+        id="" v-model="selectValues">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        </select>
+        {{selectValues}}
+        <!-- select 多选结束 -->
+
+    </div>
+
+</body>
+<!-- 1. 引入 vue 依赖库 -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            checkboxValues:[], //多选框
+            singleRadio:"" , // 单个radio
+            radioValues:"",
+            selectValue:"" ,//下拉选择
+            selectValues:[] // 下拉多选
+        }
+    })
+</script>
+
+</html>

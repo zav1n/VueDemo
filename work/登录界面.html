@@ -1,0 +1,119 @@
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./06.css">
+</head>
+
+<style>
+    #app {
+        box-sizing: border-box;
+    }
+    
+    #app .login {
+        width: 300px;
+        margin: 0 auto;
+    }
+    
+    #app .login .title {
+        text-align: center;
+        padding: 10px;
+        height: 30px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    #app .login .phone {
+        display: flex;
+        align-items: center;
+        height: 50px;
+        line-height: 30px;
+    }
+    
+    #app .login .phone .left {
+        flex: 1;
+        margin-right: 20px;
+        height: 30px;
+    }
+    
+    #app .login .phone .right {
+        flex: 10;
+    }
+    
+    #app .login .phone .right input {
+        height: 30px;
+        width: 100%;
+    }
+    
+    #app .login .code {
+        display: flex;
+        align-items: center;
+        height: 50px;
+        line-height: 30px;
+    }
+    
+    #app .login .code .left {
+        flex: 10;
+    }
+    
+    #app .login .code .left input {
+        height: 30px;
+        width: 100%;
+    }
+    
+    #app .login .code .right {
+        margin-left: 10px;
+        font-size: 20px;
+        flex: 6;
+    }
+    
+    #app .login .confirm {
+        height: 40px;
+        width: 100%;
+        background-color: #f65b5d;
+        color: white;
+        line-height: 40px;
+        text-align: center;
+        border-radius: 5px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <section class="login">
+            <section class="title">手机号登陆/注册</section>
+            <section class="phone">
+                <section class="left">+86</section>
+                <section class="right">
+                    <input type="text" v-model="phone" placeholder="手机号" />
+                </section>
+            </section>
+            <section class="code">
+                <section class="left">
+                    <input type="text" v-model="code" placeholder="请输入4位验证码" />
+                </section>
+                <section class="right">
+                    发送验证码
+                </section>
+            </section>
+            <section class="confirm">确认</section>
+            手机号：{{phone}} 验证码:{{code}}
+        </section>
+
+    </div>
+
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            phone: "",
+            code: ""
+        }
+    })
+</script>
+
+</html>

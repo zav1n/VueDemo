@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./04.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 登陆输入框开始 -->
+        <div id="login" class="app-login">
+            <section class="app-title">
+                手机号登陆/注册
+            </section>
+            <!-- 中间内容部分开始 -->
+            <section class="app-content">
+                    <section class="top">
+                        <section class="left">+86</section>
+                        <section class="right">
+                            <input type="text"
+                            placeholder="手机号"
+                            v-model="phone"
+                            ></input>
+                        </section>
+                    </section>
+                    <section class="bottom">
+                        <section class="left">
+                            <input type="text" 
+                            placeholder="请输入4位验证码"
+                            name="" id=""
+                            v-model="code"
+                            ></input>
+                        </section>
+                        <section class="right">发送验证码</section>
+                    </section>
+                </section>
+            <!-- 中间内容部分结束 -->
+            <section class="app-confirm" @click="handleLogin">
+            <!-- <section class="app-confirm" v-on:click="handleLogin"> -->
+            <!-- <section class="app-confirm" v-on:[clickevent]="handleLogin"> -->
+            <!-- <section class="app-confirm" @[clickevent]="handleLogin"> -->
+                确认
+            </section>
+
+        </div>
+        <!-- 登陆输入框结束-->
+    </div>
+</body>
+<!-- 1. 引入 vue 依赖库 -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 创建实例子 接管 app
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            clickevent:"click",
+            phone:"",
+            code:""
+        },
+        methods: {
+            handleLogin:function(){
+                // 获取电话数据
+                let phone = this.phone;
+                // 获取验证码数据
+                let code = this.code;
+                let data = {
+                    //phone,code
+                    phone:phone,code:code
+                }
+                console.log("发送数据");
+                console.table(data);
+
+            }
+        },
+
+    })
+</script>
+</html>

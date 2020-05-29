@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //for...in和for...of都可以遍历数组
+    //但是for...in遍历纯数字的数组会把里面的数字转化成字符串
+    let arr = [1, 2, 3, 4, 5]; //数组
+    // for..in 
+    for (let item in arr) {
+        console.log("for..in:", item);
+    }
+    //for...of
+    for (let item of arr) {
+        console.log("for..of:", item);
+    }
+
+    //for...in可以遍历对象，for...of不可以
+    let obj = {
+        name: "Thomas",
+        sex: "男"
+    }
+    for (let item in obj) {
+        console.log("for...in", item, ":", obj[item]);
+    }
+    for (let item of obj) { // 报错   obj is not iterable
+        console.log("for...of", item, ":", obj[item]);
+    }
+</script>
+
+</html>

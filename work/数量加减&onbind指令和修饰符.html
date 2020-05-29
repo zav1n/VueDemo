@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    · v-on v-bind 的缩写正常写法
+    · v-on v-bind 的动态写法 
+
+    · v-on指令的修饰符
+        - `.stop` - 调用 `event.stopPropagation()`。    阻止事件传播
+        - `.prevent` - 调用 `event.preventDefault()`。 阻止默认事件
+        - `.capture` - 添加事件侦听器时使用 capture 模式。  阻止事件捕获
+        - `.self` - 只当事件是从侦听器绑定的元素本身触发时才触发回调。
+        - `.{keyCode | keyAlias}` - 只当事件是从特定键触发时才触发回调。
+        - `.native` - 监听组件根元素的原生事件。
+        - `.once` - 只触发一次回调。
+        - `.left` - (2.2.0) 只当点击鼠标左键时触发。
+        - `.right` - (2.2.0) 只当点击鼠标右键时触发。
+        - `.middle` - (2.2.0) 只当点击鼠标中键时触发。
+        - `.passive` - (2.3.0) 以 `{ passive: true }` 模式添加侦听器
+ -->
+    <div id="app">
+        <!-- v-on v-bind 缩写正常写法 -->
+        <!-- <button @click="add">+</button>
+        <input type="text" :value="num">
+        <button @click="sub">-</button> -->
+
+        <!-- v-on v-bind 的 动态写法 -->
+        <button @[event]="add">+</button>
+        <input type="text" :[val]="num">
+        <button @[event]="sub">-</button>
+
+        <!---------------v-on的修饰符------------------->
+
+        <nav @click="list">
+            <!-- @click.stop 点击了这个控制台不会输出 ”点击了父list“ 阻止了事件传播，停止冒泡，所以父不会被点击 -->
+            <div @click.stop="item">项目1</div>
+            <!-- 本来a标签会跳到指定页面，但是使用了prevent的修饰符 阻止了默认事件 -->
+            <a href="http://www.baidu.com" @click.prevent="item">项目2</a>
+            <!-- 这个capture不知道用什么实例去模拟 -->
+            <div @click.capture="item">项目3</div>
+            <!-- once` - 只触发一次回调。 -->
+            <div @click.once="item">once修饰符只能输出一次，后面再点击就直接触发父了</div>
+        </nav>
+
+        <!-- self修饰符 -->
+        <div @click.self="pdiv">
+            你点击了（这里）父才输出，不会影响到子
+            <div @click.prevent="cdiv">子用了prevent，所以你点击了子（这里），父不会被触发，如果子没有用prevent父也会跟着出发</div>
+        </div>
+
+
+        <button @click="changeImage">点击切换图片</button>
+        <img :src="imageSrc" style="width: 200px;height: 200px;">
+    </div>
+
+
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            num: 0,
+            event: "click",
+            val: "value",
+            imageSrc: "../code/5-27day1/images/1.jpeg"
+        },
+        methods: {
+            add() {
+                this.num++
+            },
+            sub() {
+                if (this.num <= 0) {
+                    alert("不能再减了")
+                } else {
+                    this.num--
+                }
+
+            },
+            list() {
+                console.log('点击了父list');
+            },
+            item() {
+                console.log('点击了子item');
+            },
+            pdiv() {
+                console.log('你点击了父div');
+            },
+            cdiv() {
+                console.log('你点击了子div');
+            },
+            changeImage() {
+                this.imageSrc =
+                    this.imageSrc === "../code/5-27day1/images/1.jpeg" ? "../code/5-27day1/images/2.jpeg" : "../code/5-27day1/images/1.jpeg"
+            }
+        }
+    })
+</script>
+
+</html>

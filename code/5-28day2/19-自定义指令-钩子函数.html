@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <div id="app">
+
+        <!-- <input type="text"
+        v-if="seen"
+        v-focus:foo="100"
+         id="myText" :value="text"> -->
+
+        <input type="text" v-if="seen" v-focus:[direction].stop.prevent.a.b="100" id="myText" :value="text">
+        <!-- <input type="text"  id="myText" value="文本域"> -->
+
+    </div>
+
+
+</body>
+<!-- 1.引入 vue 的依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 定义了一个 v-focus 的指令
+    // 文本的自动聚焦
+    // 全局指令
+    Vue.directive("focus", {
+        bind: function(el, binding, vnode) {
+            // console.log(el);
+            console.table(binding);
+            // console.log(vnode);
+            console.log("bind:", "进入到 bind中");
+        },
+        // 当元素被插入到 父元素的时候调用
+        inserted: function(el, binding, vnode) {
+            // 元素聚焦
+            console.log("insert:", "当元素被插入到 父元素的时候调用")
+            el.focus();
+        },
+        update: function(el, binding, vnode) {
+            console.log("update 更新中");
+        },
+        unbind: function(el, binding, vnode) {
+            console.log("unbinding 解绑中 ");
+        }
+    })
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            text: "👍💯😊",
+            seen: true,
+            direction: "top"
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- .lazy  当输入的时候不会立即显示，失焦的时候才会显示 -->
+        <span>.lazy :{{msg}}</span>
+        <input type="text" v-model.lazy="msg">
+        <!-- v-model.trim就是用来清除这些多余的空格的，当然如果是密码等输入框，请不要加此修饰，有些用户会用空格做密码。 -->
+        <span>.trim:{{    str    }}</span>
+        <input type="text" v-model.trim="str">
+        <!-- v-model.number 将用户输入的字符串转换成number -->
+        <!-- 输入了数字后面输入的东西不是数字就会被清掉 -->
+        <span>.number:{{str1}}</span>
+        <input type="text" v-model.number="str1">
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            msg: "",
+            str: "",
+            str1: "",
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <div id="app">
+        <div v-pin:[fn]="200">这里是app的一个div</div>
+    </div>
+
+    <div id="app2">
+        <!-- <div v-bgcolor:[css]>这是id=app2的div css</div>
+        <div v-bgcolor:[css2]="['pink']">这是id=app2的div css2</div> -->
+        <!-- <div v-bgcolor:[css3]=color>这是id=app2的div css3</div> -->
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //自定义指令可以写在Vue实例外面，那就变成全局指令
+    //如果卸载Vue实例里面，那么就是局部指令，只有该Vue实例才可以用该指令
+    //全局写法：
+    //           Vue.directive("指令名称", {
+    //               bind(ele, binding, vnode) {
+    //                   console.table(binding)
+    //               },
+    //           })
+    //局部写法：
+    //        是一个选项，选项名 directives
+    //            directives: {
+    //                指令名字: {
+    //                    bind(ele, binding, vnode) {
+    //                        console.table(binding);
+    //                    }
+    //                }
+    //            }
+    //指令里面不知bind选项，还有其他选项
+    //bind inserted update componentUpdated unbind
+    //以上都叫钩子函数，但不是周期函数的钩子函数，我个人叫法叫做自定义指令的钩子函数
+    //每个钩子函数都有以下参数：el binding vnode oldVnode 
+
+
+
+
+
+
+
+
+    //---------------------------div id="app1"-------全局指令-------------------------- 
+
+    // 定义了一个 全局指令 v-pin 的指令
+    // 实现距离 顶部 固定位置  并且用函数去实现
+    // 动态属性可以写成函数，函数定义在data里面
+    Vue.directive("pin", {
+        bind(ele, b, vnode) {
+            ele.style = `position:fixed;${b.arg()}:${b.value}px`
+            console.table(b);
+        },
+    })
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            //可以返回多个值吗？怎么去调用里面的值?
+            fn() {
+                return 'left'
+            }
+        }
+    })
+
+    //---------------------------div id="app2"--------局部指令--------------------------- 
+    //定义一个 局部指令 v-bgcolor
+    //自定义的钩子函数（bind）使用场景：页面初始化的时候对这个元素进行操作，例如样式
+    new Vue({
+        el: '#app2',
+        data: {
+            //这是动态写法之对象
+            css: {
+                background: "pink",
+                position: "fixed"
+            },
+            //这是动态写法之数组
+            css2: ["50px", "skyblue"],
+            css3: ['background', 'color'],
+            color: ['red', 'blue']
+        },
+        directives: {
+            bgcolor: {
+                bind(ele, b, vnode) {
+                    console.table(b);
+                    //三种写法改变背景颜色为粉色
+                    //在动态定义里面，css的arg定义了background
+                    // ele.style.background = b.arg.background
+                    // ele.style = `background:${b.arg.background}`
+
+
+                    //动态属性css2 v-bgcolor:[css2]="['pink']"   因为我在自定义指令等号右边给了值，这个值就是value的值
+                    //如果是数字，就不用引号  如果是字符串，或者数组，对象就要引号括起来
+                    // ele.style.background = b.value[0]
+
+
+                    //动态属性的css3     css3里面有两个参数，分别是['background', 'color']
+                    //                      还有两个值   分别是['red', 'blue']
+                    //分开写只会显示最后一个，因为最后一个覆盖了前面一个
+                    // ele.style = `${b.arg[1]}:${b.value[1]};`
+                    // ele.style = `${b.arg[0]}:${b.value[0]}`;
+                    //如果要同时显示要写在一起
+                    ele.style = `${b.arg[1]}:${b.value[1]};${b.arg[0]}:${b.value[0]}`
+
+                }
+            }
+        }
+    })
+</script>
+
+</html>

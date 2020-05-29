@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <div id="app">
+        <div id="text" v-pin:[direction]="200">
+            👍💯😊
+        </div>
+        <!-- <div id="text" >
+          👍💯😊
+      </div> -->
+        <!-- <input type="text"  id="myText" value="文本域"> -->
+
+    </div>
+
+
+</body>
+<!-- 1.引入 vue 的依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 定义了一个 v-pin 的指令
+    // 实现距离 顶部 固定位置
+    // 全局指令
+    Vue.directive("pin", {
+        bind: function(el, binding, vnode) {
+            // 设置 position fixed
+            el.style.position = "fixed";
+            // 设置距离顶部值
+            // console.log(el);
+            console.table(binding);
+            console.log(el.style.background = "pink");
+            // el.style["left"] = binding.value+"px";
+            el.style[binding.arg] = binding.value + "px";
+
+        },
+        // 当元素被插入到 父元素的时候调用
+        inserted: function(el, binding, vnode) {
+            // 元素聚焦
+
+        }
+    })
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            // 这里只能写一个参数吗？如果我是要有left和backgroundColor等等呢
+            direction: "left"
+        }
+    })
+</script>
+
+</html>

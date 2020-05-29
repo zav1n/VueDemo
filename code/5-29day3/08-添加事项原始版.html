@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <section>
+            <input type="text" v-model="inputVal">
+            <button @click="add">添加</button>
+        </section>
+        <section>
+            <ul>
+                <li v-for="item,index in values">
+                    {{item}}<button @click="del(index)">删除</button>
+                </li>
+            </ul>
+        </section>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+
+<script>
+
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            inputVal:"",// 输入框的值
+            values:[] // 下面列表的值
+        },
+        methods: {
+            add:function(){
+                // 如果输入是空的情况下
+                if(!this.inputVal.trim()){
+                    alert("请输入非空文字！");
+                    return;
+                }
+                // 赋值
+                this.values.push(this.inputVal);
+                // 清空输入框中的内容
+                this.inputVal = ""
+                // 清空输入框内容
+                
+                //  赋值
+                //this.values = values;
+                //console.log(this.inputVal);
+            },
+            del:function(index){
+                console.log(index);
+                this.values.splice(index,1);
+            }
+        },
+    })
+</script>
+</html>

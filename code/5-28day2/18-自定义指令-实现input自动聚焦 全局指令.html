@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <div id="app">
+        <input type="text" v-focus id="myText" value="文本域">
+        <!-- <input type="text"  id="myText" value="文本域"> -->
+
+    </div>
+
+
+</body>
+<!-- 1.引入 vue 的依赖库  -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 定义了一个 v-focus 的指令
+    // 文本的自动聚焦
+    // 全局指令
+    Vue.directive("focus",{
+        // 当元素被插入到 父元素的时候调用
+        inserted:function(el,binding,vnode){
+            // 元素聚焦
+            el.focus();
+        }
+    })
+    let vm = new Vue({
+        el:"#app",
+        data:{
+
+        }
+    })
+</script>
+
+</html>

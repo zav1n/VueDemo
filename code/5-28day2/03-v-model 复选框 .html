@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 演示 多行文本 的使用 -->
+    <div id="app">
+        <input type="checkbox" 
+        v-model="checked"
+        name="" id="">
+         <h1>{{checked}}</h1>
+    </div>
+    
+</body>
+<!-- 1. 引入 vue 依赖库 -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 新建一个 Vue的实例
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            checked:true
+        }
+    })
+</script>
+</html>

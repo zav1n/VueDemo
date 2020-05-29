@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 1. 定义一个class [v-cloak] */
+    [v-cloak]{
+        display:none
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 2. 在需要隐藏的地方 使用 v-cloak指令 -->
+    <div id="app" v-cloak >
+    <!-- <div id="app" > -->
+        <section v-if="seen">
+            1:<section v-html="rawHtml"></section>
+        </section>
+        <section v-else-if="seen1">
+            2:<section v-html="rawHtml"></section>
+        </section>
+        <section v-else>
+            3:<section v-html="rawHtml"></section>
+        </section>
+ 
+    </div>
+
+</body>
+<!-- 1. 引入 vue 依赖库 -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // Vue.directive("cloak1",{})
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            text:"👍💯☀️",
+            seen:true,// 可不可见
+            seen1:true,
+            rawHtml:'<div id="lg"><img hidefocus="true" src="//www.baidu.com/img/bd_logo1.png" width="270" height="129"></div>'
+        }
+    })
+</script>
+
+</html>

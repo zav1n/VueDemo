@@ -1,0 +1,20 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  line-height: 50px;
+}
+.nav .left {
+  display: flex;
+}
+.nav .left .nav-item {
+  margin-left: 20px;
+}
+.nav .right {
+  display: flex;
+  align-items: center;
+}
+.nav .right .nav-item {
+  margin-left: 20px;
+}

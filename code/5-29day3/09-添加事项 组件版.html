@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <todos></todos>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+
+<script>
+    // 注册全局组件
+    Vue.component("todos", {
+        data: function () {
+            return {
+                inputVal: "",// 输入框的值
+                values: [] // 下面列表的值
+            }
+        },
+        template: `
+        <section>
+            <section>
+                <input type="text" v-model="inputVal">
+                <button @click="add">添加</button>
+            </section>
+            <section>
+                <ul>
+                    <li v-for="item,index in values">
+                        {{item}}<button @click="del(index)">删除</button>
+                    </li>
+                </ul>
+            </section>   
+        </section>
+     `,
+     methods: {
+         add:function(){
+            console.log("adding....");
+            if (!this.inputVal.trim()) {
+                    alert("请输入非空文字！");
+                    return;
+                }
+                // 赋值
+                this.values.push(this.inputVal);
+                // 清空输入框中的内容
+                this.inputVal = ""
+                // 清空输入框内容
+         },
+         del:function(index){
+            console.log(index);
+                this.values.splice(index, 1);
+         }
+     },
+    })
+    let vm = new Vue({
+        el: "#app",
+        data: {
+
+        },
+        methods: {
+        },
+    })
+</script>
+
+</html>
