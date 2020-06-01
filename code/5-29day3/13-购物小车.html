@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <table>
+            <thead>
+                <th>编号</th>
+                <th>名称</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>总价</th>
+            </thead>
+            <tbody>
+                <tr v-for="item,index of products">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
+                    <td><button @click="add(index)">+</button>{{item.num}}
+                        <button @click="sub(index)">-</button></td>
+                    <td>{{item.price*item.num}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- {{now}} -->
+        <!-- 计算属性 -->
+        <section>总价:{{getTotalPriceWithComputed}}</section>
+        <!--  -->
+        <section>总价:{{getTotalPrice()}}</section>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+
+<script>
+
+
+   
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            products:[
+                {
+                    id:1,
+                    name:"apple",
+                    price:3,
+                    num:2
+                },
+                {
+                    id:2,
+                    name:"pear",
+                    price:4,
+                    num:3
+                },
+                {
+                    id:3,
+                    name:"banana",
+                    price:5,
+                    num:4
+                }
+            ]
+        },
+        computed: {
+            now:function(){
+                return Date.now();
+            },
+            getTotalPriceWithComputed(){
+                let products = this.products;
+                let totalPrice = 0;
+                for(let item of products){
+                    totalPrice += item.num * item.price;
+                }
+                return totalPrice;            
+            }
+        },
+        methods: {
+            now:function(){
+                return Date.now();
+            },
+            getTotalPrice(){
+                let products = this.products;
+                let totalPrice = 0;
+                for(let item of products){
+                    totalPrice += item.num * item.price;
+                }
+                return totalPrice;
+            },
+            add:function(index){
+                // 添加产品
+                this.products[index].num ++;
+            },
+            sub:function(index){
+                // 数量 到 1 不让减
+                if(this.products[index].num -1 ==0){
+                    alert("已经快到0拉，不能减拉");
+                    return;
+                }
+                this.products[index].num--;
+            }
+        },
+    })
+</script>
+
+</html>

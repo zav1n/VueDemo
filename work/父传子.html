@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- ：title="title"  前子后父 -->
+        <test-lable :tit="title"></test-lable>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    Vue.component("test-lable", {
+        template: `
+            <div>
+                <h1>{{tit}}</h1>
+            </div>
+        `,
+        props: {
+            tit: {
+                type: [String, Number]
+            }
+        }
+    })
+
+    new Vue({
+        el: "#app",
+        data: {
+            title: "父传给子的信息"
+        },
+        methods: {},
+    })
+</script>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .nav{
+        display:flex;
+    }
+    .nav-item{
+        border:1px solid #ddd;
+        width:100px;
+        height:50px;
+        line-height: 50px;
+        text-align: center;
+        color:black;
+    }
+    .active{
+        background-color: #dddddd;
+    }
+    
+</style>
+
+<body>
+    <div id="app">
+        <nav class="nav">
+            <!-- class 是激活类 -->
+            <section v-bind:class="['nav-item',{
+                active:currentTab==item.id
+            }]" 
+            v-for="item,index in navs"
+            :key="index"
+            @click="changeTab(index)"
+            >
+                {{item.title}}
+            </section>
+        </nav>
+        <section class="content">
+            <!-- 使用动态组件渲染 -->
+            <component :is="componentId"></component>
+        </section>
+    </div>
+</body>
+<!-- 引入依赖 -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    /* 主页组件 */
+    Vue.component("app-home", {
+        template:`<section>主页</section>`
+    })
+    /* 公司介绍 */
+    Vue.component("app-introduce", {
+        template:`<section>公司介绍</section>`
+    })
+    /* 主页组件 */
+    Vue.component("app-product", {
+        template:`<section>产品介绍</section>`
+    })
+    let vm = new Vue({
+        el: "#app",
+        computed: {
+            componentId:function(){
+                // 当前组件名称
+                let componentId = "app-"+this.currentTab;
+                return componentId;
+            }
+        },
+        data: {
+            currentTab:"home",
+            navs:[{
+                id:"home",
+                title:"主页",
+            },{
+                id:"introduce",
+                title:"公司介绍",
+            },{
+                id:"product",
+                title:"产品介绍",
+            }]
+        },
+        methods: {
+            changeTab:function(index){
+                this.currentTab = this.navs[index].id;
+            }
+        },
+    })
+
+</script>
+
+</html>

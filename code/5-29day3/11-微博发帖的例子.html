@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./11.css">
+    <style>
+        [v-cloak] {
+            display: none
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <section id="app-box">
+            <section class="box-title">
+                <section class="left">有什么新鲜事想告诉大家</section>
+                <section class="right">热门微博</section>
+            </section>
+            <section class="box-content">
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+            </section>
+            <section class="box-footer">
+                <section class="left">
+                    <section class="left-item">表情</section>
+                    <section class="left-item">图片</section>
+                    <section class="left-item">视频</section>
+                    <section class="left-item">话题</section>
+                    <section class="left-item">头条文章</section>
+                </section>
+                <section class="right">
+                    发帖
+                </section>
+
+            </section>
+
+        </section>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+
+<script>
+
+    // 注册全局组件
+
+    let vm = new Vue({
+        el: "#app",
+        data: {
+
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"> 
+        <!-- 页面的监听事件 -->
+        <!-- $event 代表 事件触发时传过来的参数  -->
+        <h1>父组件title:{{title}}</h1>
+        <!-- <test :title="title"
+        v-on:update:title="title=$event"
+        ></test> -->
+        <test :title.sync="title"
+        ></test>
+    </div>
+</body>
+<!-- 引入依赖 -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    Vue.component("test",{
+        props:["title"],
+        data:function(){
+            return {
+                title_children:this.title
+            }
+        },
+        template:`
+        <section>
+            <h1>子组件title:{{title_children}}</h1>
+            <button @click="changeValue">修改title_children的值</button>
+        </section>
+        `,
+        methods: {
+            changeValue:function(){
+                this.title_children = "💯";
+                // 通过事件将值传给父组件
+                this.$emit("update:title",this.title_children)
+            }
+        },
+    })
+    let vm = new Vue({
+
+        el:"#app",
+        data:{
+            title:"👍",
+        },
+        methods: {
+            test:function(){
+                console.log("test")
+            },
+            changeParentTitle:function(value){
+                this.title = value;
+            }
+        },
+    })
+
+</script>
+</html>

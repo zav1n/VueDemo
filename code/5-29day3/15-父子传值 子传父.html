@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 子传父 通过事件传 案例
+        
+    -->
+    <div id="app" v-cloak>
+        <!-- `.native` - 监听组件根元素的原生事件。 -->
+        <son v-on:yanlunziyou="sayMessage">
+        </son>
+        <section>
+            {{message}}
+        </section>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+
+<script>
+
+
+    // 注册全局组件
+    Vue.component("son", {
+        props:["title"],
+        template: `
+        <section>
+                <h1><button @click="say">老爸打了儿子一下</button></h1>
+        </section>
+     `,
+     methods: {
+         say:function(){
+             // 发送事件
+             this.$emit("yanlunziyou","老爸打我拉");
+         }
+     },
+    })
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            title: "父传子案例",
+            message:"" // 告诉老妈的话
+        },
+        methods: {
+            sayMessage:function(msg){
+                this.message = msg;
+            }
+        },
+    })
+</script>
+
+</html>

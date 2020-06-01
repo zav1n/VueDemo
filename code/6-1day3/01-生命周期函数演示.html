@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"> 
+        <!-- 页面的监听事件 -->
+        <h1 @click="test" >{{title}}</h1>
+    </div>
+</body>
+<!-- 引入依赖 -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        // 元素创建前
+        beforeCreate() {
+            // 元素
+            console.log("beforeCreate:"+this.$el);
+            //数据
+            console.log("beforeCreate:"+this.$data);
+        },
+        //元素创建时
+        created() {
+            // 元素
+            console.log("created:"+this.$el);
+            //数据
+            console.log("created:"+this.$data);
+        },
+        beforeMount() {
+            // 元素
+            console.log("before mount:"+this.$el);
+            //数据
+            console.log("before mount:"+this.$data); 
+        },
+        mounted() {
+            // 元素
+            console.log("mounted:"+this.$el);
+            //数据
+            console.log("mounted:"+this.$data);     
+        },
+        beforeUpdate() {
+            console.log("更新前");
+        },
+        updated() {
+            console.log("更新啦");
+        },
+        beforeDestroy() {
+            console.log("销毁前");
+        },
+        destroyed() {
+            console.log("销毁啦");
+        },
+
+        // el:"#app",
+        data:{
+            title:"生命周期函数的演示",
+            seen:true //  可见
+        },
+        methods: {
+            test:function(){
+                console.log("test")
+            }
+        },
+    })
+    vm.$mount("#app");
+    // 写一个定时器 3秒之后 修改 data 的title
+    setTimeout(function(){
+        vm.$data.title = "更新：生命周期函数的演示"
+    },3000)
+    // 写一个定时器 6秒之后销毁
+    setTimeout(function(){
+        vm.$destroy();
+    },6000)
+</script>
+</html>

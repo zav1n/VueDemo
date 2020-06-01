@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <addinput></addinput>
+    </div>
+</body>
+
+
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    Vue.component("addinput", {
+        template: `
+        <div>
+            <input type="text" v-model="val">
+            <button @click="add">添加</button>
+            <div v-for="item,index in values">
+                <span>{{item}}</span>
+                <button value="删除" @click="del(index)">删除</button>
+            </div>
+        </div>
+        `,
+        data() {
+            return {
+                val: "",
+                values: [],
+            }
+        },
+        methods: {
+            add() {
+                if (!this.val.trim()) {
+                    alert("请输入文本")
+                    return
+                }
+                console.log('点击了添加');
+                this.values.push(this.val)
+                this.val = "" //input输入值点添加之后清空，记得要在赋值之后清除
+            },
+            del(index) {
+                this.values.splice(index, 1)
+                console.log('点击了删除');
+            }
+        },
+    })
+
+    new Vue({
+        el: "#app",
+        data: {},
+        methods: {},
+    })
+</script>
+
+</html>

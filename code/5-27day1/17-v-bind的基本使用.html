@@ -14,9 +14,9 @@
         <img v-bind:[srcname]="imageSrc" alt="">
         <img :src="imageSrc" alt=""> -->
         <!-- 动态属性 -->
-       <!-- <img :[srcname]="imageSrc" alt=""> -->
+        <!-- <img :[srcname]="imageSrc" alt=""> -->
         <!-- 字符串拼接 -->
-        <img v-bind:src="'./images/'+'1.jpeg'" alt="">
+        <img v-bind:src="'./images/'+'1.jpeg'">
     </div>
 
 </body>
@@ -27,14 +27,13 @@
     let vm = new Vue({
         el: "#app",
         data: {
-            imageSrc:"./images/1.jpeg",
-            srcname:'src'
+            imageSrc: "./images/1.jpeg",
+            srcname: 'src'
         },
         methods: {
 
         },
     })
-
 </script>
 
 </html>

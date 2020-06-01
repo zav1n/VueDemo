@@ -1,0 +1,48 @@
+#app {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+#app #app-box {
+  margin: 0 auto;
+  height: 300px;
+  width: 650px;
+  padding: 0 20px;
+  border: 1px solid black;
+}
+#app #app-box .box-title {
+  height: 50px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+#app #app-box .box-title .left {
+  color: #858ec0;
+}
+#app #app-box .box-title .right {
+  color: #ec9278;
+}
+#app #app-box .box-content textarea {
+  width: 100%;
+}
+#app #app-box .box-footer {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  justify-content: space-between;
+}
+#app #app-box .box-footer .left {
+  display: flex;
+}
+#app #app-box .box-footer .left .left-item {
+  margin-right: 20px;
+}
+#app #app-box .box-footer .right {
+  background-color: #f4c1a2;
+  color: white;
+  border-radius: 5px;
+  line-height: 50px;
+  text-align: center;
+  height: 50px;
+  width: 120px;
+}

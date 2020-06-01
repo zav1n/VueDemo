@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 父传子 案例 -->
+    <div id="app" v-cloak>
+        <!-- `.native` - 监听组件根元素的原生事件。 -->
+        <demo :title="title">
+
+        </demo>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 父传子 通过属性传 
+    Vue.component("demo", {
+        props: ["title"],
+        template: `
+        <section>
+                <h1>{{title}}</h1>
+        </section>
+     `
+    })
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            title: "父传子案例"
+        },
+        methods: {
+
+        },
+    })
+</script>
+
+</html>

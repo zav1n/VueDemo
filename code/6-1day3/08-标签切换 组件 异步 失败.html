@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .nav{
+        display:flex;
+    }
+    .nav-item{
+        border:1px solid #ddd;
+        width:100px;
+        height:50px;
+        line-height: 50px;
+        text-align: center;
+        color:black;
+    }
+    .active{
+        background-color: #dddddd;
+    }
+    
+</style>
+
+<body>
+    <div id="app">
+        <nav class="nav">
+            <!-- class 是激活类 -->
+            <section v-bind:class="['nav-item',{
+                active:currentTab==item.id
+            }]" 
+            v-for="item,index in navs"
+            :key="index"
+            @click="changeTab(index)"
+            >
+                {{item.title}}
+            </section>
+        </nav>
+        <section class="content">
+            <!-- 使用动态组件渲染 -->
+            <!-- keep-alive 组件 缓存当前组件 -->
+            <!-- <keep-alive>
+                <component :is="componentId"></component>
+            </keep-alive> -->
+            <!-- include 参数使用 -->
+            <!-- <keep-alive :include='["app-home","app-introduce"]'>
+                <component :is="componentId"></component>
+            </keep-alive> -->
+            <!-- exclude 参数使用 -->
+            <!-- <keep-alive :exclude='["app-product"]'>
+                <component :is="componentId"></component>
+            </keep-alive> -->
+            <!-- :max 参数使用 -->
+            <keep-alive  :max="2">
+                <component :is="componentId"></component>
+            </keep-alive>
+        </section>
+    </div>
+</body>
+<!-- 引入依赖 -->
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    /* 主页组件 */
+    // Vue.component("app-home", {
+    //     template:`<section>主页</section>`,
+    //     beforeDestroy() {
+            
+    //     },
+    //     destroyed() {
+    //         console.log("主页 销毁了");
+    //     },
+    // })
+    /* 异步组件 */
+    Vue.component("app-home", function(resolve,reject){
+        setTimeout(function(){
+            // 失败 返回主页模版
+            reject({
+                template:`<section>Opsss</section>`
+            })
+        },3000)
+    })
+    /* 公司介绍 */
+    Vue.component("app-introduce", {
+        template:`<section>公司介绍</section>`,
+        beforeDestroy() {
+            
+        },
+        destroyed() {
+            console.log("公司介绍 销毁了");
+        },
+    })
+    /* 主页组件 */
+    Vue.component("app-product", {
+        template:`<section>产品介绍</section>`,
+        beforeDestroy() {
+            
+        },
+        destroyed() {
+            console.log("产品介绍 销毁了");
+        },
+    })
+    let vm = new Vue({
+        el: "#app",
+        computed: {
+            componentId:function(){
+                // 当前组件名称
+                let componentId = "app-"+this.currentTab;
+                return componentId;
+            }
+        },
+        data: {
+            currentTab:"home",
+            navs:[{
+                id:"home",
+                title:"主页",
+            },{
+                id:"introduce",
+                title:"公司介绍",
+            },{
+                id:"product",
+                title:"产品介绍",
+            }]
+        },
+        methods: {
+            changeTab:function(index){
+                this.currentTab = this.navs[index].id;
+            }
+        },
+    })
+
+</script>
+
+</html>

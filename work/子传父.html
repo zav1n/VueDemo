@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <test-lable @dianji="sendMsg"></test-lable>
+        <span>这是父接收信息：{{msg}}</span>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    Vue.component("testLable", {
+        template: `
+            <div>
+                <button @click="myEvent">这个按钮是子的，点击之后发送信息给父</button>
+            </div>
+        `,
+        methods: {
+            myEvent() {
+                this.$emit("dianji", "子发给父信息了")
+            }
+        }
+    })
+
+    new Vue({
+        el: "#app",
+        data: {
+            msg: "",
+        },
+        methods: {
+            sendMsg(val) {
+                this.msg = val
+            }
+        },
+    })
+</script>
+
+</html>

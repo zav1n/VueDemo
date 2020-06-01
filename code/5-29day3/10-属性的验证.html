@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- <todos @click.native="handleClick($event)"></todos> -->
+        <!-- <todos v-bind:number="number"
+        v-bind:name="name"
+        ></todos> -->
+        <todos 
+        v-bind:name="name"
+        v-bind:score="score" 
+        v-bind:person="p"
+        ></todos>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+
+<script>
+    function Person(name,sex){
+        this.name = name;
+        this.sex = sex;
+    }
+
+    // 注册全局组件
+    Vue.component("todos", {
+        // props:["number"],
+        props:{
+            number:{
+                //type:Number
+                type:[Number,String,Object,Function,Boolean],
+                default:100
+            },
+            name:{
+                type:String,
+                required:true
+            },
+            obj:{
+                type:Object,
+                // default:{ 对象或数组的默认值必须从工厂方法获得
+                //     size:100
+                // }
+                default:function(){
+                    return {
+                        size:100
+                    }
+                }
+
+            },
+            score:{
+                type:Number,
+                validator:function(value){
+                    return value > 80;// 当值大于80的时候才及格 值只有大于80的时候，才是符合要求的
+                }
+            },
+            person:{
+                type:Person
+            }
+        },
+        data: function () {
+            return {
+                inputVal: "",// 输入框的值
+                values: [] // 下面列表的值
+            }
+        },
+        template: `
+        <section>
+            number:{{number}}<br>
+            name:{{name}}<br>
+            obj.size:{{obj.size}}<br>
+            score:{{score}}<br>
+        </section>
+     `
+    })
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            // number:1
+            number:false,
+            name:"古林精怪",
+            // score:70
+            score:90,
+             p:new Person()
+            //p:10
+        }
+    })
+</script>
+
+</html>
