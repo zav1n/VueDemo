@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 纯函数 任何固定的输入 都有固定的输出 并且没有任何副作用
+    function test(a,b){
+        return a+b;
+    }
+    console.log(test(1,2));
+    console.log(test(3,4));
+    function demo(a,b){
+        // 停顿的事件
+        let n = parseInt(Math.random()*10)*1000;
+        console.log("停顿的时间:",n);
+        setTimeout(function(){
+            console.log(a+b);
+        },n)
+    }
+    console.log(demo(1,2));
+    console.log(demo(3,4));
+</script>
+</html>

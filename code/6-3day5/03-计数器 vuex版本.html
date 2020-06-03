@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 
+        3. 定义视图
+        访问仓库中 的数据 counter 
+        $store 是传入的 store属性 在Vue中的对象
+        state 是 $store 里面的 属性
+        -->
+        <!-- {{$store.state.counter}} -->
+        {{counter}}
+        <div>
+            <button @click="increase">加</button>
+        </div>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<!-- 1. 引入 vuex 的依赖库 -->
+<script src="https://unpkg.com/vuex@3.4.0/dist/vuex.js"></script>
+<script>
+    //2. 创建仓库
+    let store = new Vuex.Store({
+        // state 相当于 data
+        state:{
+            counter:10
+        },
+        // 相当于 methods 
+        mutations:{
+            add:function(state){
+                state.counter ++;
+            }
+        }
+    });
+    //1. 新建 Vue 实例
+    let vm = new Vue({
+        el:"#app",
+        store, //将store作为属性 传入到 Vue 中
+        computed: {
+            // 通过 计算属性 获取 仓库中 的 counter值
+            counter:function(){
+                return this.$store.state.counter;
+            }
+        },
+        methods: {
+            increase:function(){
+                // 通过 $store.commit 提交 add 操作
+                this.$store.commit("add");
+            }
+        },
+    })
+</script>
+</html>

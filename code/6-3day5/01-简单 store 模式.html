@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 插值 表达式  -->
+        <div> {{ msg }} </div>
+        <!-- $data 就是最简单 的仓库模式 -->
+        <div> {{$data.mingyan}}</div>
+        <div> {{$data.biaoqing}}</div>
+        <div> {{$data.obj["guojia"]}}</div>
+        <button @click="changeNation">换个国家-🇩🇪</button>
+        <demo>
+            <h1>DEMO:来自父组件的名言</h1>
+        </demo>
+
+        <test>
+            <h1>TEST:来自父组件的名言</h1>
+        </test>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    // 2. 子组件 demo 并且在子组件中 
+    // 通过 $root 访问到根节点的数据 
+    let demo = Vue.component("demo", {
+        template: `<div>
+        <slot></slot><div>
+        {{$root.mingyan}}
+        <button @click="changeMingyan">修改名言</button>
+        </div>
+        </div>`,
+        methods: {
+            changeMingyan:function(){
+                this.$root.mingyan = "凉拌炒鸡蛋";
+            }
+        },
+    })
+    let test = Vue.component("test", {
+        template: `<div>
+        <slot></slot><div>
+        {{$root.mingyan}}
+        <button @click="changeMingyan">修改名言</button>
+        </div>
+        </div>`,
+        methods: {
+            changeMingyan:function(){
+                this.$root.mingyan = "凉拌炒鸡蛋";
+            }
+        },
+    })
+    let app = new Vue({
+        el: "#app",
+        data: {
+            msg: "键盘敲烂，月薪过万！",
+            mingyan: "写代码是一件非常快乐的事情",
+            biaoqing: ['💯', "👍", "😊"],
+            obj: {
+                "guojia": "美国"
+            }
+        },
+        methods: {
+            changeNation: function () {
+                // $root 根节点属性
+                //  this.$data.obj.guojia = "德国";
+                this.$root.obj.guojia = "德国";
+            }
+        },
+    })
+</script>
+
+</html>

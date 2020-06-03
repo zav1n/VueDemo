@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 
+        3. 定义视图
+        访问仓库中 的数据 counter 
+        $store 是传入的 store属性 在Vue中的对象
+        state 是 $store 里面的 属性
+        -->
+        <!-- {{$store.state.counter}} -->
+        {{counter}}
+        <div>
+            <button @click="increase">加</button>
+        </div>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<!-- 1. 引入 vuex 的依赖库 -->
+<script src="https://unpkg.com/vuex@3.4.0/dist/vuex.js"></script>
+<script>
+    //2. 创建仓库
+    let store = new Vuex.Store({
+        // state 相当于 data
+        state:{
+            counter:10
+        },
+        // 相当于 methods 
+        mutations:{
+            //注意 在mutations 中，变动必须是同步函数
+            // 例如说 不能出现 网络请求，setTimeout setInterval  等等异步操作
+
+            // 传入 数字
+            // add:function(state,step=1){
+            //     state.counter += step;
+            // }
+            // 传入对象
+            // add:function(state,payload){
+            //     state.counter += payload.step;
+            // }
+            // 动态参数
+            ['add']:function(state,payload){
+                state.counter += payload.step;
+            }
+        }
+    });
+    //1. 新建 Vue 实例
+    let vm = new Vue({
+        el:"#app",
+        store, //将store作为属性 传入到 Vue 中
+        computed: {
+            // 通过 计算属性 获取 仓库中 的 counter值
+            counter:function(){
+                return this.$store.state.counter;
+            }
+        },
+        methods: {
+            increase:function(){
+                // 通过 $store.commit 提交 add 操作
+                let step = 10;
+                // this.$store.commit("add",10);
+                // this.$store.commit("add",{
+                //     step:10
+                // });
+                // 通过type的形式
+                this.$store.commit({
+                    type:"add",
+                    step:10
+                })
+            }
+        },
+    })
+</script>
+</html>

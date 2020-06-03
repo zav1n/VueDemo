@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 2. 将counter 通过表达式 展示在界面 -->
+        {{counter}}
+        <div>
+            <!--3. 添加事件  -->
+            <button @click="add">加</button>
+        </div>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //1. 新建 Vue 实例
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            counter:1
+        },
+        methods: {
+            add:function(){
+                // this.counter++;
+                // this.$data.counter++;
+                this.$root.counter++;
+            }
+        },
+
+    })
+</script>
+</html>
