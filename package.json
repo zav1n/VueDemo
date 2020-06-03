@@ -10,6 +10,9 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@vue/cli": "^4.4.1",
+        "less": "^3.11.2",
+        "less-loader": "^6.1.0",
         "vue": "^2.6.11"
     },
     "devDependencies": {

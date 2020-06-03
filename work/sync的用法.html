@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //sync 是什么？是修饰符  用来修改子组件并且把修改的数据传递给父组件
+    //为什么不用props？避免维护上带来的问题，
+    //如何使用？
+    //1. 使用模板的地方添加.sync  msg是你要给子组件传的数据  <Box :str.sync='msg' />   
+    //<Box :str.sync='msg' />     等于号前面是子，后面是父      str是传给子，子的props接受的是str不是msg   也可以把右边理解为变量或者数据
+    //2.把子修改后的值传递给父
+    //在子组件中的methods 使用$emit,  this.$emit('update:str', this.title)     this.$emit('A', B)
+    //  A是 update：名字  B是变量
+    //3.然后用事件去触发这个emit  例如用个click去触发
+    const Box = {
+        template: `
+        <section>
+            <div >{{title}}</div>
+            <input type='button' value='点击连同父的数据也改了' @click='changemsg' />
+        </section>
+        `,
+        props: ['str'],
+        data() {
+            return {
+                title: this.str
+            }
+        },
+        methods: {
+            changemsg() {
+                this.title = '你点击了按钮并且修改了数据'
+                this.$emit('update:str', this.title)
+            }
+        },
+    }
+
+
+    new Vue({
+        el: '#app',
+        template: `
+        <section>
+            <Box :str.sync='msg' />
+            <h1>{{msg}}</h1>
+        </section>
+        `,
+        data: {
+            msg: '父的数据'
+        },
+        methods: {},
+        components: {
+            Box,
+        }
+    })
+</script>
+
+</html>

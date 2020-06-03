@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .tab {
+        display: flex;
+    }
+
+    .tab-item {
+        width: 200px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        border: 1px solid #ddd;
+        color: black;
+    }
+
+    .active {
+        background-color: #ddd;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!-- 
+            导航的 最外层
+            item.id === currentTab 表示该项被选中
+         -->
+        <div class="tab">
+            <div :class="['tab-item',{active:item.id==currentTab}]" @click.prevent.stop="switchTab(index)"
+                v-for="item,index in navs">{{item.title}}</div>
+        </div>
+        <div class="content">
+            <component :is="currentTab"></component>
+        </div>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //  主页组件
+    let Home = Vue.component("home", {
+        template: `<div>主页</div>`
+    })
+    // 公司介绍
+    let Introduce = Vue.component("introduce", {
+        template: `<div>公司介绍</div>`
+    })
+    // 产品详情
+    let Product = Vue.component("product", {
+        template: `<div>产品详情</div>`
+    })
+    let app = new Vue({
+        el: "#app",
+        data: {
+            currentTab: "home", //当前渲染的组件
+            navs: [{
+                id: "home",
+                title: "主页"
+            }, {
+                id: "introduce",
+                title: "公司介绍"
+            }, {
+                id: "product",
+                title: "产品详情"
+            }]
+        },
+        methods: {
+            // 切换 菜单栏事件
+            switchTab: function (index) {
+                // 获取当前 切换菜单的 componentId
+                let componentId = this.navs[index].id;
+                this.currentTab = componentId;
+            }
+        },
+    })
+</script>
+
+</html>

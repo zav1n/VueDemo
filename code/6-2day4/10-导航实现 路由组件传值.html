@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .tab {
+        display: flex;
+    }
+
+    .tab-item {
+        width: 200px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        border: 1px solid #ddd;
+        color: black;
+    }
+
+    .active {
+        background-color: #ddd;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!-- 
+            导航的 最外层
+            item.path === currentTab 表示该项被选中
+         -->
+        <div class="tab">
+            <div :class="['tab-item',{active:item.path==currentTab}]" @click.prevent.stop="switchTab(index)"
+                v-for="item,index in navs">{{item.title}}</div>
+        </div>
+        <div class="content">
+            <!-- 视图的出口 配置 -->
+            <router-view></router-view>
+        </div>
+    </div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<!-- 1. 引入 React Router 需要的依赖库 -->
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+    //  主页组件
+    let Home = Vue.component("home", {
+        // 接受父组件的 id属性
+        props: ["id"],
+        template: `<div>主页</div>`
+    })
+    // 公司介绍
+    let Introduce = Vue.component("introduce", {
+        // 接受父组件的 id属性
+        props: ["id"],
+        template: `<div>公司介绍</div>`
+    })
+    // 产品详情
+    let Product = Vue.component("product", {
+        // 接受父组件的 id属性
+        props: ["query"],
+        template: `<div>产品详情</div>`
+    })
+    // 1. 配置 路由和 组件之间的映射 关系
+    let routes = [{
+        path: "/home/:id",
+        name: "home", //规则对应的 名称
+        component: Home,
+        alias: "/home1",
+        // 布尔值形式
+        props: true  //会将 $route.params 作为props 传给子组件
+    }, {
+        path: "/introduce",
+        component: Introduce,
+        // props 是对象的情况
+        props: {
+            id: "👍"
+        }
+    }, {
+        path: "/product",
+        name: "product",
+        component: Product,
+        //通过函数传
+        props: (route) => ({ query: route.query })
+
+    }]
+    //2. 初始化 VueRouter的实例
+    const router = new VueRouter({
+        routes
+    })
+    //3. 将router 作为属性传入到app中
+    let app = new Vue({
+        router,
+        el: "#app",
+        data: {
+            currentTab: "/home/123", //当前渲染的组件
+            navs: [{
+                path: "/home/123",
+                title: "主页"
+            }, {
+                path: "/introduce",
+                title: "公司介绍"
+
+            }, {
+                path: "/product",
+                title: "产品详情"
+            }]
+        },
+        methods: {
+            // 4. 切换 菜单栏事件
+            switchTab: function (index) {
+                // 使用push 切换 路由
+                this.$router.push(this.navs[index].path)
+            }
+        },
+    })
+</script>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script>
+    //slot对应template标签
+    //slot的内容是备用，若空则不显示，template内容为先
+    //slot定义了name，则template用 # （v-slot） 可以使用哪个slot
+    //顺序：顺序按slot来排列 从上往下
+    //插槽（slot）是谁的，就在它的组件里面写template
+
+
+    Vue.component('Box', {
+        template: `
+        <section>
+            <slot name="s2"></slot>
+            <slot name="s3">{{str}}</slot>
+            <slot name="s1">这里是备用信息1</slot>
+            <template>
+                <h2>从父插过来的，没加name，加了name就报错</h2>    
+            </template>
+        </section>
+        `,
+        data() {
+            return {
+                str: '在子组件定义了数据'
+            }
+        }
+    })
+
+
+    new Vue({
+        el: '#app',
+        template: `
+        <div>
+            <Box>
+                <template #s1>若没有这段文字就会用会slot标签里的内容，可尝试一下删除此文本，让此template内容为空</template>    
+                <template #s2><h1>插槽信息2</h1></template> 
+                <slot></slot>
+            </Box>
+        </div>
+        `,
+        data: {},
+        methods: {},
+    })
+</script>
+
+</html>

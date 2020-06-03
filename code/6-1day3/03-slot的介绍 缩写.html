@@ -31,7 +31,7 @@
             </template> -->
             <!-- 没有名字 剩下的这部分 default -->
             <h1>content from  默认</h1>
-       
+
             <!-- 作用域 直接访问 是不可以的 -->
             <!-- <h1>{{user.name}}</h1> -->
         </test>
@@ -41,11 +41,11 @@
 <script src="https://cn.vuejs.org/js/vue.js"></script>
 <script>
     Vue.component("test", {
-        data: function () {
+        data: function() {
             return {
                 /* 子组件 中的 user */
-                user:{
-                    name:"六一儿童节快乐！"
+                user: {
+                    name: "六一儿童节快乐！"
                 }
             }
         },
@@ -65,7 +65,6 @@
             title: "👍",
         }
     })
-
 </script>
 
 </html>
