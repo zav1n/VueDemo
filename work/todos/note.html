@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../todos/note.css">
+</head>
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script src="https://unpkg.com/vuex@3.4.0/dist/vuex.js"></script>
+<style>
+
+</style>
+
+<body>
+    <section class="noteapp" v-cloak>
+        <!-- 输入框 -->
+        <header class="header">
+            <h2>备忘录</h2>
+            <input class="new-text" type="text" placeholder="请输入事项" @keyup.enter="addText" v-model="newText" @input="showTips" @blur="hdInputting">
+            <ul :class="['tips','hidden',{show:inputting}]">
+                <li class="inputting-list" v-for="tip,index in tips" @click.stop="addTodolist(tip)">{{tip}}</li>
+            </ul>
+        </header>
+        <!-- 列表 -->
+        <section class="note-list" v-cloak>
+            <section v-for="(item,i) in filteredTodos">
+                <!-- 显示所有 -->
+                <ul>
+                    <input type="checkbox" class="nameCheck" v-model="item.checked">
+                    <li @dblclick.stop="edittext(i)" :class="[{hidden:edit_index==i}]">{{item.title}}</li>
+                    <!-- 双击修改 --><input type="text" :class="['hidden',{show:edit_index==i}]" v-model="item.title" @keyup.esc="cancelEdit(i)" @keyup.enter="saveEdit(i)" @blur="saveEdit(i)">
+                    <input type="button" class="removeBtn" value="×" @click="remove(item)">
+                </ul>
+            </section>
+        </section>
+        <!-- 底部 -->
+        <section class="note-buttom">
+            <div class="checkAll"><input type="checkbox" v-model="allDone">全选</div>
+            <span>剩下{{remaining}}项</span>
+            <ul class="filters">
+                <li>
+                    <a href="#/alltext" :class="{ selected: visited == 'alltext' }">所有</a>
+                </li>
+                <li>
+                    <a href="#/doingtext" :class="{ selected: visited == 'doingtext' }">未完成</a>
+                </li>
+                <li>
+                    <a href="#/donetext" :class="{ selected: visited == 'donetext' }">已完成</a>
+                </li>
+            </ul>
+            <input type="button" value="清除已完成" @click="removeAllText">
+        </section>
+    </section>
+</body>
+<script>
+    let TODOLIST_KEY = "todolist"
+    let todoStorage = {
+        fetch() {
+            let todoList = JSON.parse(localStorage.getItem(TODOLIST_KEY) || "[]")
+            todoStorage.uid = todoList.length
+                // todoList.forEach((todo, index) => {
+                //     todo.id = index
+                // })
+            return todoList
+        },
+        save(todoList) {
+            localStorage.setItem(TODOLIST_KEY, JSON.stringify(todoList))
+        }
+    }
+
+    let filters = {
+        alltext: function(todoList) {
+            return todoList;
+        },
+        doingtext: function(todoList) {
+            return todoList.filter(function(todo) {
+                return !todo.checked;
+            });
+        },
+        donetext: function(todoList) {
+            return todoList.filter(function(todo) {
+                return todo.checked;
+            });
+        }
+    };
+
+    let app = new Vue({
+        data: {
+            todoList: todoStorage.fetch(),
+            newText: "",
+            visited: "alltext",
+            content_cache: "", //编辑缓存的内容
+            edit_index: -1,
+            editstate: false,
+            inputting: false
+        },
+        watch: {
+            todoList: {
+                handler: function(todoList) {
+                    todoStorage.save(todoList);
+                },
+                deep: true
+                    /*
+                    deep的意思就是深入观察，监听器会一层层的往下遍历，
+                    给对象的所有属性都加上这个监听器，但是这样性能开销就会非常大了，
+                    任何修改obj里面任何一个属性都会触发这个监听器里的 handler。
+                    */
+            }
+        },
+        computed: {
+            filteredTodos: function() {
+                return filters[this.visited](this.todoList);
+            },
+            //剩下几项未完成
+            remaining() {
+                return filters.doingtext(this.todoList).length;
+            },
+            //全选
+            allDone: {
+                get: function() {
+                    return this.remaining === 0;
+                },
+                set: function(value) {
+                    this.todoList.forEach(function(todo) {
+                        todo.checked = value;
+                    });
+                }
+            },
+            tips: function() {
+                let tips = []
+                this.todoList.forEach((v, i) => {
+                    if (v.title.indexOf(this.newText) != -1) {
+                        tips.push(v.title)
+                    }
+                })
+                return tips;
+            }
+        },
+        methods: {
+            addText: function() {
+                let value = this.newText && this.newText.trim()
+                    //判断如果输入框为空就返回不执行
+                if (!value) {
+                    return
+                }
+                this.todoList.unshift({
+                        id: todoStorage.uid++,
+                        title: value,
+                        checked: false
+                    })
+                    // console.log(value);
+                this.newText = ""
+            },
+            remove: function(item) {
+                // console.log(this.todoList.indexOf(item));
+                // console.log(this.todoList.item);
+                this.todoList.splice(this.todoList.indexOf(item), 1)
+            },
+            removeAllText: function() {
+                this.todoList = filters.doingtext(this.todoList);
+            },
+            edittext: function(index) {
+                this.content_cache = this.todoList[index].title
+                this.edit_index = index
+            },
+            cancelEdit: function(index) {
+                this.todoList[index].title = this.content_cache
+                this.content_cache = ""
+                this.edit_index = -1
+            },
+            saveEdit: function(index) {
+                //如果输入为空，删除该项
+                if (!this.todoList[index].title) {
+                    this.todoList.splice(index, 1)
+                }
+                this.edit_index = -1;
+            },
+            showTips: function() {
+                this.inputting = true;
+            },
+            addTodolist: function(tip) {
+                this.todoList.unshift({
+                        id: todoStorage.uid++,
+                        title: tip,
+                        checked: false,
+                    })
+                    // this.inputting = false;
+            },
+            hdInputting: function() {
+                setTimeout(() => {
+                    this.inputting = false
+                }, 100);
+            },
+        },
+    })
+
+    function onHashChange() {
+        var visited = window.location.hash.replace(/#\/?/, "");
+        if (filters[visited]) {
+            app.visited = visited;
+        } else {
+            window.location.hash = "";
+            app.visited = "alltext";
+        }
+    }
+
+    window.addEventListener("hashchange", onHashChange);
+    onHashChange();
+
+
+    app.$mount(".noteapp")
+</script>
+
+</html>

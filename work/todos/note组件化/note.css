@@ -1,0 +1,74 @@
+[v-cloak] {
+  display: none;
+}
+ul,
+li {
+  text-decoration: none;
+  list-style: none;
+}
+.noteapp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.noteapp .header h2 {
+  display: flex;
+  justify-content: center;
+  color: gray;
+}
+.noteapp .header input.new-text {
+  width: 400px;
+  height: 50px;
+  font-size: 20px;
+  color: gray;
+}
+.noteapp .header .tips {
+  width: 368px;
+  background-color: rgba(203, 206, 255, 0.5);
+}
+.noteapp .header .tips .inputting-list {
+  cursor: pointer;
+  border: 1px solid #dbdbdb;
+}
+.noteapp .header .hidden {
+  display: none;
+}
+.noteapp .header .show {
+  display: block;
+}
+.noteapp .note-list section ul {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  margin-left: -40px;
+}
+.noteapp .note-list section ul .hidden {
+  display: none;
+}
+.noteapp .note-list section ul .show {
+  display: block;
+}
+.noteapp .note-buttom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.noteapp .note-buttom div.checkAll {
+  margin-right: 20px;
+}
+.noteapp .note-buttom ul.filters {
+  display: flex;
+  justify-content: center;
+}
+.noteapp .note-buttom ul.filters li {
+  margin-right: 20px;
+}
+.noteapp .note-buttom ul.filters li a {
+  color: gray;
+  text-decoration: none;
+}
+.noteapp .note-buttom ul.filters li a.selected {
+  color: red;
+  border-color: rgba(175, 47, 47, 0.2);
+}

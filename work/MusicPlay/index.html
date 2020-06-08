@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<style>
+
+</style>
+
+<body>
+    <div id="wrap">
+        <div id="player" class="player">
+            <!-- 头部开始 -->
+            <div class="player-top">
+                <div class="top-right">
+                    <input class="searchSong" type="text" v-model="query" @keyup.enter="serachMusic" @click="showSearchList" @keyup.esc="closeSearchList">
+                    <ul :class="['searchList',{show:searchList}]">
+                        <div class="closeList" @click="closeList">关闭</div>
+                        <li v-for="item,i in searchHistory">
+                            <span class="title" @click="isSong(item.title)">{{item.title}}</span>
+                            <span class="remove" @click="removeTitle(i)">×</span>
+                        </li>
+                        <div class="removeAll" @click="removeAllHistory">清除历史记录</div>
+                    </ul>
+                </div>
+            </div>
+            <!-- 头部结束 -->
+
+            <!-- 中间开始 -->
+            <div class="player-content">
+                <div class="content-left">
+                    <ul class="list">
+                        <li v-for="item,i in musicList">
+                            <a href="javascript:;" @click="playMusic(item.id)"></a>
+                            <div>{{item.name}}</div>
+                            <span v-if="item.mvid!=0" @click="playMv(item.mvid)"></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-middle" :class="{playing:isPlay}">
+                    <img src="./images/player_bar.png" class="play_bar">
+                    <img src="./images/disc.png" class="disc autoRotate">
+                    <img :src="coverUrl==''?'./images/cover.png':coverUrl" class="cover autoRotate">
+                </div>
+                <div class="content-right">
+                    <div class="comment">热门评论</div>
+                    <ul class="list">
+                        <li v-for="item,i in hotComment">
+                            <img :src="item.user.avatarUrl" />
+                            <span>{{item.user.nickname}}</span>
+                            <div>{{item.content}}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 中间结束 -->
+
+            <!-- 底部开始 -->
+            <div class="player-buttom">
+                <audio :src="musicUrl" ref='audio' class="myaudio" controls autoplay loop @play="play" @pause="pause"></audio>
+            </div>
+            <!-- 底部结束 -->
+
+            <!-- MV开始 -->
+            <div class="video_con" v-show="showVideo">
+                <video ref='video' :src="mvUrl" controls="controls"></video>
+                <div class="mask" @click="closeMv"></div>
+            </div>
+            <!-- MV结束 -->
+
+
+        </div>
+    </div>
+</body>
+<script src="../../node_modules/vue/dist/vue.js"></script>
+<script src="../../node_modules/axios/dist/axios.js"></script>
+<script src="./js/common.js"></script>
+<script>
+    axios.defaults.baseURL = 'https://apimusic.linweiqin.com/';
+
+    let SEARCH_KEY = "searchHistory"
+
+    let searchHistoryStorage = {
+        fecth() {
+            let searchHistory = JSON.parse(localStorage.getItem(SEARCH_KEY) || "[]")
+            return searchHistory
+        },
+        save(searchHistory) {
+            localStorage.setItem(SEARCH_KEY, JSON.stringify(searchHistory))
+        }
+    }
+
+    let app = new Vue({
+        el: '#player',
+        data: {
+            isPlay: false,
+            query: "",
+            musicList: [],
+            musicUrl: "",
+            hotComment: "",
+            coverUrl: '',
+            showVideo: false,
+            mvUrl: "",
+            searchList: false,
+            searchHistory: searchHistoryStorage.fecth()
+        },
+        watch: {
+            searchHistory: {
+                handler: function(searchHistory) {
+                    searchHistoryStorage.save(searchHistory)
+                }
+            }
+        },
+        methods: {
+            serachMusic: function() {
+                if (this.query === "") {
+                    return
+                }
+                axios.get("search?keywords=" + this.query).then(res => {
+                    this.musicList = res.data.result.songs
+                })
+                this.searchHistory.unshift({
+                    title: this.query
+                })
+                this.query = ""
+            },
+            playMusic: function(musicId) {
+                axios.get("/song/url?id=" + musicId).then(res => {
+                    this.musicUrl = res.data.data[0].url
+                })
+                axios.get("comment/hot?type=0&id=" + musicId).then(res => {
+                    this.hotComment = res.data.hotComments
+                })
+                axios.get('/song/detail?ids=' + musicId).then(response => {
+                    this.coverUrl = response.data.songs[0].al.picUrl
+                })
+                this.searchList = false
+            },
+            play: function() {
+                this.isPlay = true
+            },
+            pause: function() {
+                this.isPlay = false
+            },
+            playMv: function(mv) {
+                if (mv) {
+                    this.showVideo = true;
+                    // 获取mv信息
+                    axios.get('/mv/url?id=' + mv).then(response => {
+                        // console.log(response)
+                        // 暂停歌曲播放
+                        this.$refs.audio.pause()
+                            // 获取mv地址
+                        this.mvUrl = response.data.data.url
+                    })
+                }
+            },
+            closeMv: function() {
+                this.showVideo = false
+                this.$refs.video.pause()
+            },
+            showSearchList: function() {
+                this.searchList = true
+            },
+            closeSearchList: function() {
+                this.searchList = false
+            },
+            removeTitle: function(i) {
+                this.searchHistory.splice(i, 1)
+            },
+            removeAllHistory: function() {
+                this.searchHistory = []
+                this.searchList = false;
+            },
+            isSong: function(SongName) {
+                axios.get("search?keywords=" + SongName).then(res => {
+                    this.musicList = res.data.result.songs
+                })
+                this.searchList = false;
+            },
+            closeList: function() {
+                this.searchList = false;
+            }
+        },
+    })
+</script>
+
+</html>

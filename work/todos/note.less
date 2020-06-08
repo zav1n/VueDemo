@@ -1,0 +1,107 @@
+[v-cloak]{
+  display: none;
+}
+ul,li{
+  text-decoration: none;
+  list-style: none;
+}
+.noteapp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .header {
+      h2 {
+        display: flex;
+        justify-content: center;
+        color: gray;
+      }
+  
+      input.new-text {
+        width: 400px;
+        height: 50px;
+        font-size: 20px;
+        color: gray;
+      }
+      .tips{
+        width: 368px;
+        background-color: rgba(203, 206, 255, 0.5);
+        .inputting-list{
+          cursor: pointer;
+          border: 1px solid rgb(219, 219, 219);
+        }
+      }
+      .hidden{
+        display: none;
+      }
+      .show{
+        display: block;
+      }
+    }
+
+    .note-list {
+
+      section {
+        ul {
+          width: 400px;
+          display: flex;
+          justify-content: space-between;
+          margin-left: -40px;
+          input.nameCheck {
+            
+          }
+          .hidden{
+            display: none;
+          }
+          .show{
+            display: block;
+          }
+          li {
+    
+          }
+    
+          input.removeBtn {
+    
+          }
+        }
+      }
+    }
+
+    .note-buttom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      div.checkAll {
+        margin-right: 20px;
+        input {
+    
+        }
+      }
+    
+      span {
+    
+      }
+    
+      ul.filters {
+        display: flex;
+        justify-content: center;
+        
+        li {
+          margin-right: 20px;
+          a {
+            color: gray;
+            text-decoration: none;
+          }
+          a.selected{
+            color: red;
+            border-color: rgba(175, 47, 47, 0.2);
+          }
+        }
+      }
+    
+      input {
+    
+      }
+    }
+
+  }

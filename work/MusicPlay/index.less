@@ -1,0 +1,289 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+ul,li{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+#wrap {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url("./images/bg.jpg") no-repeat;
+    background-size: 100% 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    #player.player {
+        width: 800px;
+        height: 600px;
+        border-radius: 10px;
+
+        .player-top {
+            width: 100%;
+            height: 70px;
+            background: #1eacda;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+
+            position: relative;
+            .top-right {
+                position: absolute;
+                right: 30px;
+                top:25%;
+              input.searchSong {
+                width: 300px;
+                height: 35px;
+                border-radius: 17px;
+                background: url("./images/zoom.png") 265px center no-repeat
+                rgba(255, 255, 255, 0.45);
+                border: 0px;//消灭上面黑黑的阴影边框
+                text-indent: 15px;//距离开始的位置
+                outline: none;//去除点击之后触发的白色边框
+              }
+              .searchList{
+                  position: absolute;
+                  width: 300px;
+                  height: 200px;
+                  border-radius: 10px;
+                  background-color: white;
+                  z-index: 11;
+                  overflow: auto;
+                  display: none;
+                  .closeList{
+                      margin-left: 20px;
+                      margin-top: 10px;
+                      font-size: 15px;
+                      font-weight: 500;
+                      color: rgb(80, 80, 80);
+                  }
+                  li{
+                      margin-left: 10px;
+                      line-height: 30px;
+                      border-bottom: 1px solid rgba(221, 221, 221, 0.3);
+                      .title{
+                          cursor: pointer;
+                      }
+                      .remove{
+                          position: absolute;
+                          right: 20px;
+                          cursor: pointer;
+                      }
+                  }
+                  .removeAll{
+                      line-height: 30px;
+                      text-align: center;
+                      font-size: 13px;
+                      color: rgb(153, 153, 153);
+                      cursor: pointer;
+                  }
+              }
+              .show{
+                  display: block;
+              }
+              .searchList::-webkit-scrollbar{
+                display: none;
+            }
+            }
+          }
+    
+          .player-content {
+              display: flex;
+              height: 460px;
+              width: 100%;
+              background-color: rgba(255, 255, 255, 0.5);
+            .content-left {
+                flex: 2.5;
+                position: relative;
+                .list{
+                    width: 100%;
+                    overflow-y: auto;
+                    overflow-x: hidden;
+                    height: 100%;
+                    li{
+                        font-size: 12px;
+                        color: #333;
+                        height: 40px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        padding-left: 10px;
+                        a{
+                            display: block;
+                            width: 17px;
+                            height: 17px;
+                            background-image: url(./images/play.png);
+                            background-size: 100%;
+                            margin-right: 5px;
+                            box-sizing: border-box;
+                        }
+                        div{
+                            width: 135px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+                        span{
+                            width: 25px;
+                            height: 18px;
+                            margin-left: 5px;
+                            background: url(./images/table.png) left -48px no-repeat;
+                            cursor: pointer;
+                        }
+                    }
+                    li:nth-child(odd){
+                        background-color: rgba(255, 255, 255, 0.3);
+                    }
+                }
+                .list::-webkit-scrollbar {
+                    display:none
+                }
+            }
+            .content-left::before{
+                content: "";
+                display: block;
+                height: 100%;
+                background: url(./images/line.png) no-repeat;
+                position: absolute;
+                width: 1px;
+                right: 0;
+            }
+
+
+            .content-middle {
+                flex: 5;
+                position: relative;
+                .play_bar{
+                    position: absolute;
+                    left:50%;
+                    transform: rotate(-25deg);
+                    transform-origin: 12px 12px;
+                    transition: 1s;
+                    z-index: 10;
+                }
+                .disc{
+                    position: absolute;
+                    z-index: 9;
+                    left: 70px;
+                    top: 75px;
+                }
+                .cover{
+                    position: absolute;
+                    left: 122px;
+                    top: 127px;
+                    width: 150px;
+                    height: 150px;
+                    z-index: 8;
+                    border-radius: 75px;
+                }
+            }
+            @keyframes Rotate {
+                from {
+                  transform: rotateZ(0);
+                }
+                to {
+                  transform: rotateZ(360deg);
+                }
+              }
+            .autoRotate {
+                animation-name: Rotate;
+                animation-iteration-count: infinite;
+                animation-play-state: paused;
+                animation-timing-function: linear;
+                animation-duration: 5s;
+              }
+            .playing{
+                  .disc,.cover{
+                    animation-play-state: running;
+                  }
+                  .play_bar {
+                    transform: rotate(0);
+                  }
+              }
+
+
+            .content-right {
+                flex: 2.5;
+                position: relative;
+                .comment{
+
+                }
+                .list{
+                    position: absolute;
+                    width: 100%;
+                    height: 440px;
+                    top: 20px;
+                    overflow: auto;
+                    li{
+                        width: 100%;
+                        margin-top: 10px;
+                        img{
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 20px;
+                        }
+                        span{
+                            font-size: 12px;
+                        }
+                        div{
+                            color: #666;
+                            font-size: 12px;
+                            margin-top: 5px;
+                            line-height: 18px;
+                        }
+                    }
+                }
+                .list::-webkit-scrollbar{
+                    display:none
+                }
+            }
+            .content-right::after{
+                content: "";
+                display: block;
+                height: 100%;
+                background: url(./images/line.png) no-repeat;
+            }
+          }
+          
+
+          .player-buttom{
+              width: 100%;
+              height: 70px;
+              border-bottom-left-radius: 10px;
+              border-bottom-right-radius: 10px;
+              background-color: #f1f3f4;
+              .myaudio{
+                margin-top: 10px;
+                width: 100%;
+                outline: none;
+                background-color: #f1f3f4;
+              }
+          }
+
+          .video_con{
+              video{
+                position: fixed;
+                width: 800px;
+                height: 546px;
+                left: 50%;
+                top: 50%;
+                margin-top: -273px;
+                transform: translateX(-50%);
+                z-index: 990;
+              }
+              .mask{
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                z-index: 980;
+                background-color: rgba(0, 0, 0, 0.8);
+              }
+          }
+
+    }
+  }

@@ -1,0 +1,271 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+ul,
+li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+#wrap {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url("images/bg.jpg") no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#wrap #player.player {
+  width: 800px;
+  height: 600px;
+  border-radius: 10px;
+}
+#wrap #player.player .player-top {
+  width: 100%;
+  height: 70px;
+  background: #1eacda;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  position: relative;
+}
+#wrap #player.player .player-top .top-right {
+  position: absolute;
+  right: 30px;
+  top: 25%;
+}
+#wrap #player.player .player-top .top-right input.searchSong {
+  width: 300px;
+  height: 35px;
+  border-radius: 17px;
+  background: url("images/zoom.png") 265px center no-repeat rgba(255, 255, 255, 0.45);
+  border: 0px;
+  text-indent: 15px;
+  outline: none;
+}
+#wrap #player.player .player-top .top-right .searchList {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  border-radius: 10px;
+  background-color: white;
+  z-index: 11;
+  overflow: auto;
+  display: none;
+}
+#wrap #player.player .player-top .top-right .searchList .closeList {
+  margin-left: 20px;
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #505050;
+}
+#wrap #player.player .player-top .top-right .searchList li {
+  margin-left: 10px;
+  line-height: 30px;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.3);
+}
+#wrap #player.player .player-top .top-right .searchList li .title {
+  cursor: pointer;
+}
+#wrap #player.player .player-top .top-right .searchList li .remove {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+}
+#wrap #player.player .player-top .top-right .searchList .removeAll {
+  line-height: 30px;
+  text-align: center;
+  font-size: 13px;
+  color: #999999;
+  cursor: pointer;
+}
+#wrap #player.player .player-top .top-right .show {
+  display: block;
+}
+#wrap #player.player .player-top .top-right .searchList::-webkit-scrollbar {
+  display: none;
+}
+#wrap #player.player .player-content {
+  display: flex;
+  height: 460px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+#wrap #player.player .player-content .content-left {
+  flex: 2.5;
+  position: relative;
+}
+#wrap #player.player .player-content .content-left .list {
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+#wrap #player.player .player-content .content-left .list li {
+  font-size: 12px;
+  color: #333;
+  height: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-left: 10px;
+}
+#wrap #player.player .player-content .content-left .list li a {
+  display: block;
+  width: 17px;
+  height: 17px;
+  background-image: url(images/play.png);
+  background-size: 100%;
+  margin-right: 5px;
+  box-sizing: border-box;
+}
+#wrap #player.player .player-content .content-left .list li div {
+  width: 135px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#wrap #player.player .player-content .content-left .list li span {
+  width: 25px;
+  height: 18px;
+  margin-left: 5px;
+  background: url(images/table.png) left -48px no-repeat;
+  cursor: pointer;
+}
+#wrap #player.player .player-content .content-left .list li:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+#wrap #player.player .player-content .content-left .list::-webkit-scrollbar {
+  display: none;
+}
+#wrap #player.player .player-content .content-left::before {
+  content: "";
+  display: block;
+  height: 100%;
+  background: url(images/line.png) no-repeat;
+  position: absolute;
+  width: 1px;
+  right: 0;
+}
+#wrap #player.player .player-content .content-middle {
+  flex: 5;
+  position: relative;
+}
+#wrap #player.player .player-content .content-middle .play_bar {
+  position: absolute;
+  left: 50%;
+  transform: rotate(-25deg);
+  transform-origin: 12px 12px;
+  transition: 1s;
+  z-index: 10;
+}
+#wrap #player.player .player-content .content-middle .disc {
+  position: absolute;
+  z-index: 9;
+  left: 70px;
+  top: 75px;
+}
+#wrap #player.player .player-content .content-middle .cover {
+  position: absolute;
+  left: 122px;
+  top: 127px;
+  width: 150px;
+  height: 150px;
+  z-index: 8;
+  border-radius: 75px;
+}
+@keyframes Rotate {
+  from {
+    transform: rotateZ(0);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+#wrap #player.player .player-content .autoRotate {
+  animation-name: Rotate;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+  animation-timing-function: linear;
+  animation-duration: 5s;
+}
+#wrap #player.player .player-content .playing .disc,
+#wrap #player.player .player-content .playing .cover {
+  animation-play-state: running;
+}
+#wrap #player.player .player-content .playing .play_bar {
+  transform: rotate(0);
+}
+#wrap #player.player .player-content .content-right {
+  flex: 2.5;
+  position: relative;
+}
+#wrap #player.player .player-content .content-right .list {
+  position: absolute;
+  width: 100%;
+  height: 440px;
+  top: 20px;
+  overflow: auto;
+}
+#wrap #player.player .player-content .content-right .list li {
+  width: 100%;
+  margin-top: 10px;
+}
+#wrap #player.player .player-content .content-right .list li img {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+#wrap #player.player .player-content .content-right .list li span {
+  font-size: 12px;
+}
+#wrap #player.player .player-content .content-right .list li div {
+  color: #666;
+  font-size: 12px;
+  margin-top: 5px;
+  line-height: 18px;
+}
+#wrap #player.player .player-content .content-right .list::-webkit-scrollbar {
+  display: none;
+}
+#wrap #player.player .player-content .content-right::after {
+  content: "";
+  display: block;
+  height: 100%;
+  background: url(images/line.png) no-repeat;
+}
+#wrap #player.player .player-buttom {
+  width: 100%;
+  height: 70px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #f1f3f4;
+}
+#wrap #player.player .player-buttom .myaudio {
+  margin-top: 10px;
+  width: 100%;
+  outline: none;
+  background-color: #f1f3f4;
+}
+#wrap #player.player .video_con video {
+  position: fixed;
+  width: 800px;
+  height: 546px;
+  left: 50%;
+  top: 50%;
+  margin-top: -273px;
+  transform: translateX(-50%);
+  z-index: 990;
+}
+#wrap #player.player .video_con .mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 980;
+  background-color: rgba(0, 0, 0, 0.8);
+}

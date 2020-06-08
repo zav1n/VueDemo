@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./note.css">
+</head>
+<script>
+    let filters = {
+        alltext: function(todoList) {
+            return todoList;
+        },
+        doingtext: function(todoList) {
+            return todoList.filter(function(todo) {
+                return !todo.checked;
+            });
+        },
+        donetext: function(todoList) {
+            return todoList.filter(function(todo) {
+                return todo.checked;
+            });
+        }
+    };
+</script>
+
+<body>
+    <section class="noteapp" v-cloak>
+        <!-- 输入框 -->
+        <app-header></app-header>
+        <!-- 列表 -->
+        <app-content></app-content>
+        <!-- 底部 -->
+        <app-footer></app-footer>
+    </section>
+</body>
+
+<script src="https://cn.vuejs.org/js/vue.js"></script>
+<script src="https://unpkg.com/vuex@3.4.0/dist/vuex.js"></script>
+<script src="./until/until.js"></script>
+<script src="./components/footer.js"></script>
+<script src="./components/header.js"></script>
+<script src="./components/content.js"></script>
+<script src="./mian.js"></script>
+
+
+
+</html>
